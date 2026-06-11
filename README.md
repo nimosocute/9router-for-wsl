@@ -44,6 +44,12 @@ This repo installs a WSL-native service around 9Router:
 
 This project is built for [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), which makes it possible to run Linux developer services on Windows while integrating with the Windows desktop.
 
+### Contributing
+
+Issues and pull requests are welcome. Useful contributions include bug reports, distro-specific fixes, better WSL startup handling, documentation improvements, and safer install/uninstall behavior.
+
+Please keep this repo focused on WSL support for 9Router. Model routing, provider credentials, and 9Router core features should stay in the upstream 9Router project.
+
 ### Requirements
 
 - Windows with WSL2
@@ -246,6 +252,12 @@ Repo này tạo một service WSL-native bao quanh 9Router:
 9Router for WSL là tiện ích hỗ trợ cho [decolua/9router](https://github.com/decolua/9router). Bản thân 9Router được tạo và duy trì bởi dự án 9Router.
 
 Dự án này được xây cho [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), nền tảng giúp chạy dịch vụ Linux trên Windows và vẫn tích hợp với desktop Windows.
+
+### Contributing
+
+Issue và pull request đều được chào đón. Những đóng góp hữu ích gồm báo lỗi, sửa lỗi theo từng distro, cải thiện cơ chế startup trong WSL, cải thiện tài liệu, và làm install/uninstall an toàn hơn.
+
+Repo này nên tập trung vào phần hỗ trợ WSL cho 9Router. Routing model, provider credentials, và tính năng lõi của 9Router nên nằm ở upstream 9Router.
 
 ### Yêu Cầu
 
