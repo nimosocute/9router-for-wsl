@@ -1,6 +1,27 @@
-# 9Router WSL Autostart
+# 9Router for WSL
 
-Run 9Router reliably in WSL with a user `systemd` service.
+Run 9Router reliably inside Windows Subsystem for Linux (WSL).
+
+## The Problem
+
+9Router can run inside WSL, but daily use can be awkward:
+
+- the server may stop when the WSL session is closed or the distro goes idle
+- users have to remember to start 9Router manually before using CLI tools
+- the dashboard is easy to lose when 9Router is running in background mode
+- Windows login does not automatically mean the WSL service is running
+
+That creates a fragile workflow: 9Router is installed, but the proxy is not always alive when tools expect `http://127.0.0.1:20128/v1`.
+
+## The Solution
+
+9Router for WSL sets up a small WSL-native service around an existing 9Router installation:
+
+- a `systemd --user` service keeps 9Router running in the background
+- `Restart=always` brings it back if the process exits
+- a dashboard opener runs after the API is ready
+- a Windows Startup entry calls WSL on login and starts the service
+- model, provider, and credential configuration stay inside 9Router
 
 This installer:
 
@@ -10,6 +31,10 @@ This installer:
 - leaves Codex/model configuration untouched
 
 It does **not** edit `~/.codex/config.toml`, select models, add provider credentials, or configure 9Router routing. Users should do that themselves in the 9Router dashboard.
+
+## Credit
+
+This project is built for [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), which makes it possible to run Linux developer services on Windows while still integrating with the Windows desktop.
 
 ## Requirements
 
@@ -44,7 +69,7 @@ npm install -g 9router
 Then run the autostart setup:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-wsl-autostart/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-for-wsl/main/install.sh | bash
 ```
 
 The setup command creates the WSL `systemd` user service and, when possible, also creates the Windows Startup entry from WSL.
@@ -52,14 +77,14 @@ The setup command creates the WSL `systemd` user service and, when possible, als
 If you want a single copy-paste command after opening WSL:
 
 ```bash
-npm install -g 9router && curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-wsl-autostart/main/install.sh | bash
+npm install -g 9router && curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-for-wsl/main/install.sh | bash
 ```
 
 For local development only, you can clone and run:
 
 ```bash
-git clone https://github.com/nimosocute/9router-wsl-autostart.git
-cd 9router-wsl-autostart
+git clone https://github.com/nimosocute/9router-for-wsl.git
+cd 9router-for-wsl
 bash install.sh
 ```
 
