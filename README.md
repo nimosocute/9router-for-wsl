@@ -34,6 +34,8 @@ It does **not** edit `~/.codex/config.toml`, select models, add provider credent
 
 ## Credit
 
+9Router for WSL is a support utility for [decolua/9router](https://github.com/decolua/9router). 9Router itself is created and maintained by the 9Router project; this repository only adds a WSL-focused setup layer around an existing 9Router installation.
+
 This project is built for [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), which makes it possible to run Linux developer services on Windows while still integrating with the Windows desktop.
 
 ## Requirements
