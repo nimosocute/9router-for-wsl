@@ -1,7 +1,5 @@
 # 9Router for WSL
 
-Keep [9Router](https://github.com/decolua/9router) alive inside WSL: auto-start on Windows login, auto-restart with `systemd`, and open the dashboard when the API is ready.
-
 Languages: [English](#english) | [Tiếng Việt](#tiếng-việt)
 
 ## English
