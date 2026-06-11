@@ -4,7 +4,6 @@ Run 9Router reliably in WSL with a user `systemd` service.
 
 This installer:
 
-- installs 9Router with npm if it is missing
 - creates a `systemd --user` service with `Restart=always`
 - opens the 9Router dashboard after the server is ready
 - creates a Windows Startup entry that starts the WSL service on login
@@ -17,7 +16,7 @@ It does **not** edit `~/.codex/config.toml`, select models, add provider credent
 - Windows with WSL2
 - A Linux distro with `systemd` enabled
 - `bash`, `curl`, `systemctl`
-- `node` and `npm` if 9Router is not already installed
+- 9Router already installed in WSL
 
 For WSL, `/etc/wsl.conf` should include:
 
@@ -34,15 +33,27 @@ wsl --shutdown
 
 Then open the distro again.
 
-## Install With One WSL Command
+## Install
 
 From inside WSL:
+
+```bash
+npm install -g 9router
+```
+
+Then run the autostart setup:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-wsl-autostart/main/install.sh | bash
 ```
 
-That one command performs the full setup from inside WSL. It creates the WSL `systemd` user service and, when possible, also creates the Windows Startup entry from WSL.
+The setup command creates the WSL `systemd` user service and, when possible, also creates the Windows Startup entry from WSL.
+
+If you want a single copy-paste command after opening WSL:
+
+```bash
+npm install -g 9router && curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-wsl-autostart/main/install.sh | bash
+```
 
 For local development only, you can clone and run:
 
@@ -132,12 +143,6 @@ Do not create a Windows Startup entry:
 
 ```bash
 ENABLE_WINDOWS_STARTUP=0 bash install.sh
-```
-
-Do not auto-install 9Router if missing:
-
-```bash
-INSTALL_9ROUTER=0 bash install.sh
 ```
 
 Use a custom npm global prefix:

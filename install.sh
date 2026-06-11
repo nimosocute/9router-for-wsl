@@ -5,7 +5,6 @@ PORT="${9ROUTER_PORT:-20128}"
 HOST="${9ROUTER_HOST:-127.0.0.1}"
 NPM_PREFIX="${NPM_CONFIG_PREFIX:-$HOME/.npm-global}"
 export PATH="$NPM_PREFIX/bin:$PATH"
-INSTALL_9ROUTER="${INSTALL_9ROUTER:-auto}"
 OPEN_DASHBOARD="${OPEN_DASHBOARD:-1}"
 ENABLE_WINDOWS_STARTUP="${ENABLE_WINDOWS_STARTUP:-1}"
 SERVICE_NAME="9router.service"
@@ -31,21 +30,13 @@ require_cmd() {
   command -v "$1" >/dev/null 2>&1 || die "missing required command: $1"
 }
 
-install_9router_if_needed() {
+check_9router_installed() {
   if command -v 9router >/dev/null 2>&1; then
     log "9router found: $(command -v 9router)"
     return
   fi
 
-  if [ "$INSTALL_9ROUTER" = "0" ] || [ "$INSTALL_9ROUTER" = "false" ]; then
-    die "9router is not installed and INSTALL_9ROUTER=$INSTALL_9ROUTER"
-  fi
-
-  require_cmd npm
-  log "9router not found; installing with npm prefix: $NPM_PREFIX"
-  mkdir -p "$NPM_PREFIX"
-  npm config set prefix "$NPM_PREFIX" >/dev/null
-  npm install -g 9router
+  die "9router is not installed. Install it first, for example: npm install -g 9router"
 }
 
 ensure_path_line() {
@@ -205,7 +196,7 @@ main() {
     die "systemd user session is not available. Restart WSL after enabling systemd."
   fi
 
-  install_9router_if_needed
+  check_9router_installed
   ensure_path_line "$HOME/.bashrc"
   write_dashboard_opener
   write_user_service
