@@ -38,18 +38,6 @@ This repo installs a WSL-native service around 9Router:
 - a Windows Startup entry calls WSL and starts the service on login
 - model/provider routing stays fully controlled by 9Router
 
-### Credit
-
-9Router for WSL is a support utility for [decolua/9router](https://github.com/decolua/9router). 9Router itself is created and maintained by the 9Router project.
-
-This project is built for [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), which makes it possible to run Linux developer services on Windows while integrating with the Windows desktop.
-
-### Contributing
-
-Issues and pull requests are welcome. Useful contributions include bug reports, distro-specific fixes, better WSL startup handling, documentation improvements, and safer install/uninstall behavior.
-
-Please keep this repo focused on WSL support for 9Router. Model routing, provider credentials, and 9Router core features should stay in the upstream 9Router project.
-
 ### Requirements
 
 - Windows with WSL2
@@ -211,59 +199,59 @@ It does not remove:
 
 The installer intentionally avoids configuring models or credentials. If Codex, Claude Code, or another tool reports an error like "No active credentials for provider", open the 9Router dashboard and configure the provider/model routing there.
 
-## Tiếng Việt
-
-### Repo Này Làm Gì
-
-9Router for WSL là một lớp setup nhỏ giúp chạy 9Router ổn định bên trong Windows Subsystem for Linux.
-
-Repo này không thay thế 9Router. Nó hỗ trợ một bản 9Router đã được cài sẵn bằng cách thêm:
-
-- service WSL `systemd --user`
-- tự khởi động lại nếu 9Router thoát/crash
-- tự mở dashboard sau khi API sẵn sàng
-- Windows Startup entry để gọi WSL và start service khi đăng nhập Windows
-
-Repo này **không** cấu hình model, provider, credential, hoặc `~/.codex/config.toml`. Người dùng tự cấu hình các phần đó trong dashboard của 9Router.
-
-### Vấn Đề
-
-9Router có thể chạy trong WSL, nhưng dùng hằng ngày dễ bị phiền:
-
-- server có thể dừng khi session WSL đóng hoặc distro idle
-- người dùng phải nhớ start 9Router thủ công trước khi dùng CLI tools
-- dashboard dễ bị mất khi 9Router chạy nền
-- đăng nhập Windows không đồng nghĩa service trong WSL đã chạy
-
-Kết quả là các tool đang trông chờ endpoint `http://127.0.0.1:20128/v1` có thể lỗi dù 9Router đã được cài.
-
-### Giải Pháp
-
-Repo này tạo một service WSL-native bao quanh 9Router:
-
-- `systemd --user` giữ 9Router chạy nền
-- `Restart=always` kéo 9Router lên lại nếu process thoát
-- script mở dashboard chạy sau khi `/v1/models` sẵn sàng
-- Windows Startup entry gọi WSL và start service khi đăng nhập
-- routing model/provider vẫn nằm hoàn toàn trong 9Router
-
 ### Credit
 
-9Router for WSL là tiện ích hỗ trợ cho [decolua/9router](https://github.com/decolua/9router). Bản thân 9Router được tạo và duy trì bởi dự án 9Router.
+9Router for WSL is a support utility for [decolua/9router](https://github.com/decolua/9router). 9Router itself is created and maintained by the 9Router project.
 
-Dự án này được xây cho [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), nền tảng giúp chạy dịch vụ Linux trên Windows và vẫn tích hợp với desktop Windows.
+This project is built for [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), which makes it possible to run Linux developer services on Windows while integrating with the Windows desktop.
 
 ### Contributing
 
-Issue và pull request đều được chào đón. Những đóng góp hữu ích gồm báo lỗi, sửa lỗi theo từng distro, cải thiện cơ chế startup trong WSL, cải thiện tài liệu, và làm install/uninstall an toàn hơn.
+Issues and pull requests are welcome. Useful contributions include bug reports, distro-specific fixes, better WSL startup handling, documentation improvements, and safer install/uninstall behavior.
 
-Repo này nên tập trung vào phần hỗ trợ WSL cho 9Router. Routing model, provider credentials, và tính năng lõi của 9Router nên nằm ở upstream 9Router.
+Please keep this repo focused on WSL support for 9Router. Model routing, provider credentials, and 9Router core features should stay in the upstream 9Router project.
+
+## Tiếng Việt
+
+### Repo Này Dùng Để Làm Gì
+
+9Router for WSL là lớp cài đặt nhỏ giúp 9Router chạy ổn định hơn bên trong Windows Subsystem for Linux.
+
+Repo này không thay thế 9Router. Nó hỗ trợ bản 9Router đã có sẵn bằng cách thêm:
+
+- dịch vụ WSL `systemd --user`
+- tự chạy lại nếu 9Router thoát hoặc bị lỗi
+- tự mở bảng điều khiển sau khi API sẵn sàng
+- mục khởi động cùng Windows để gọi WSL và bật dịch vụ khi đăng nhập
+
+Repo này **không** cấu hình model, provider, credential, hoặc `~/.codex/config.toml`. Người dùng tự cấu hình các phần đó trong bảng điều khiển của 9Router.
+
+### Vấn Đề
+
+9Router chạy được trong WSL, nhưng dùng hằng ngày dễ gặp vài bất tiện:
+
+- máy chủ có thể dừng khi phiên WSL đóng hoặc distro rơi vào trạng thái nghỉ
+- người dùng phải nhớ bật 9Router thủ công trước khi dùng các công cụ dòng lệnh
+- bảng điều khiển khó mở lại khi 9Router đang chạy nền
+- đăng nhập Windows không có nghĩa là dịch vụ trong WSL đã chạy
+
+Vì vậy các công cụ cần `http://127.0.0.1:20128/v1` vẫn có thể lỗi dù 9Router đã được cài.
+
+### Giải Pháp
+
+Repo này tạo một dịch vụ chạy trong WSL để quản lý 9Router:
+
+- `systemd --user` giữ 9Router chạy nền
+- `Restart=always` tự kéo 9Router lên lại nếu tiến trình thoát
+- script mở bảng điều khiển sau khi `/v1/models` sẵn sàng
+- mục khởi động cùng Windows gọi WSL và bật dịch vụ khi đăng nhập
+- phần định tuyến model/provider vẫn do 9Router quản lý hoàn toàn
 
 ### Yêu Cầu
 
 - Windows có WSL2
-- Linux distro đã bật `systemd`
-- `bash`, `curl`, `systemctl`
+- distro Linux đã bật `systemd`
+- có `bash`, `curl`, `systemctl`
 - 9Router đã được cài trong WSL
 
 Trong WSL, `/etc/wsl.conf` nên có:
@@ -273,7 +261,7 @@ Trong WSL, `/etc/wsl.conf` nên có:
 systemd=true
 ```
 
-Sau khi sửa file đó, restart WSL từ Windows:
+Sau khi sửa file đó, khởi động lại WSL từ Windows:
 
 ```powershell
 wsl --shutdown
@@ -289,19 +277,19 @@ Trong WSL, cài 9Router trước:
 npm install -g 9router
 ```
 
-Sau đó chạy setup cho WSL:
+Sau đó chạy phần cài đặt cho WSL:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-for-wsl/main/install.sh | bash
 ```
 
-Một dòng copy-paste:
+Một dòng để copy-paste:
 
 ```bash
 npm install -g 9router && curl -fsSL https://raw.githubusercontent.com/nimosocute/9router-for-wsl/main/install.sh | bash
 ```
 
-Nếu muốn clone để phát triển:
+Nếu muốn tải repo về để chỉnh sửa:
 
 ```bash
 git clone https://github.com/nimosocute/9router-for-wsl.git
@@ -314,10 +302,10 @@ bash install.sh
 Sau khi cài:
 
 1. Đăng nhập Windows.
-2. Windows Startup entry gọi WSL.
-3. WSL start `9router.service`.
-4. 9Router chạy nền và tự restart nếu thoát.
-5. Dashboard tự mở sau khi API sẵn sàng.
+2. Mục khởi động cùng Windows gọi WSL.
+3. WSL bật `9router.service`.
+4. 9Router chạy nền và tự chạy lại nếu thoát.
+5. Bảng điều khiển tự mở sau khi API sẵn sàng.
 
 API endpoint:
 
@@ -325,13 +313,13 @@ API endpoint:
 http://127.0.0.1:20128/v1
 ```
 
-Dashboard:
+Bảng điều khiển:
 
 ```text
 http://localhost:20128/dashboard
 ```
 
-### Lệnh Hay Dùng
+### Các Lệnh Hay Dùng
 
 Kiểm tra trạng thái:
 
@@ -339,19 +327,19 @@ Kiểm tra trạng thái:
 systemctl --user status 9router.service
 ```
 
-Restart:
+Chạy lại dịch vụ:
 
 ```bash
 systemctl --user restart 9router.service
 ```
 
-Dừng:
+Dừng dịch vụ:
 
 ```bash
 systemctl --user stop 9router.service
 ```
 
-Mở dashboard thủ công:
+Mở bảng điều khiển thủ công:
 
 ```bash
 ~/bin/open-9router-dashboard.sh
@@ -367,25 +355,25 @@ curl http://127.0.0.1:20128/v1/models
 
 Đặt biến môi trường trước khi chạy `install.sh`.
 
-Dùng port khác:
+Dùng cổng khác:
 
 ```bash
 9ROUTER_PORT=20129 bash install.sh
 ```
 
-Bind host khác:
+Bind vào host khác:
 
 ```bash
 9ROUTER_HOST=0.0.0.0 bash install.sh
 ```
 
-Không tự mở dashboard:
+Không tự mở bảng điều khiển:
 
 ```bash
 OPEN_DASHBOARD=0 bash install.sh
 ```
 
-Không tạo Windows Startup entry:
+Không tạo mục khởi động cùng Windows:
 
 ```bash
 ENABLE_WINDOWS_STARTUP=0 bash install.sh
@@ -405,17 +393,29 @@ bash uninstall.sh
 
 Lệnh này xoá:
 
-- service `systemd --user`
-- script mở dashboard
-- Windows Startup entry
+- dịch vụ `systemd --user`
+- script mở bảng điều khiển
+- mục khởi động cùng Windows
 
 Lệnh này không xoá:
 
 - package npm của 9Router
 - dữ liệu người dùng của 9Router
 - provider credentials
-- Codex config
+- cấu hình Codex
 
 ### Ghi Chú
 
-Installer cố ý không cấu hình model hoặc credential. Nếu Codex, Claude Code, hoặc tool khác báo lỗi kiểu "No active credentials for provider", hãy mở dashboard 9Router và tự cấu hình provider/model routing trong đó.
+Installer cố ý không cấu hình model hoặc credential. Nếu Codex, Claude Code, hoặc công cụ khác báo lỗi kiểu "No active credentials for provider", hãy mở bảng điều khiển 9Router và tự cấu hình provider/model routing trong đó.
+
+### Ghi Công
+
+9Router for WSL là tiện ích hỗ trợ cho [decolua/9router](https://github.com/decolua/9router). Bản thân 9Router được tạo và duy trì bởi dự án 9Router.
+
+Dự án này được xây cho [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/), nền tảng giúp chạy dịch vụ Linux trên Windows và vẫn tích hợp với desktop Windows.
+
+### Đóng Góp
+
+Issue và pull request đều được chào đón. Những đóng góp hữu ích gồm báo lỗi, sửa lỗi theo từng distro, cải thiện cách khởi động trong WSL, cải thiện tài liệu, và làm quá trình cài/gỡ an toàn hơn.
+
+Repo này nên tập trung vào phần hỗ trợ WSL cho 9Router. Phần định tuyến model/provider, thông tin đăng nhập provider, và tính năng lõi của 9Router nên nằm ở upstream 9Router.
