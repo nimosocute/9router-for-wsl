@@ -408,7 +408,7 @@ Lệnh này không xoá:
 
 Installer cố ý không cấu hình model hoặc credential. Nếu Codex, Claude Code, hoặc công cụ khác báo lỗi kiểu "No active credentials for provider", hãy mở bảng điều khiển 9Router và tự cấu hình provider/model routing trong đó.
 
-### Ghi Công
+### Credit
 
 9Router for WSL là tiện ích hỗ trợ cho [decolua/9router](https://github.com/decolua/9router). Bản thân 9Router được tạo và duy trì bởi dự án 9Router.
 
