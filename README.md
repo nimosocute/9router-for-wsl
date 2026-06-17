@@ -149,13 +149,13 @@ Set environment variables before running `install.sh`.
 Use a different port:
 
 ```bash
-9ROUTER_PORT=20129 bash install.sh
+NINE_ROUTER_PORT=20129 bash install.sh
 ```
 
 Bind to a different host:
 
 ```bash
-9ROUTER_HOST=0.0.0.0 bash install.sh
+NINE_ROUTER_HOST=0.0.0.0 bash install.sh
 ```
 
 Do not open the dashboard automatically:
@@ -358,13 +358,13 @@ curl http://127.0.0.1:20128/v1/models
 Dùng cổng khác:
 
 ```bash
-9ROUTER_PORT=20129 bash install.sh
+NINE_ROUTER_PORT=20129 bash install.sh
 ```
 
 Bind vào host khác:
 
 ```bash
-9ROUTER_HOST=0.0.0.0 bash install.sh
+NINE_ROUTER_HOST=0.0.0.0 bash install.sh
 ```
 
 Không tự mở bảng điều khiển:

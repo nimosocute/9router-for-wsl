@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PORT="${9ROUTER_PORT:-20128}"
-HOST="${9ROUTER_HOST:-127.0.0.1}"
+PORT="${ROUTER_PORT:-${NINE_ROUTER_PORT:-$(printenv 9ROUTER_PORT 2>/dev/null || true)}}"
+PORT="${PORT:-20128}"
+HOST="${ROUTER_HOST:-${NINE_ROUTER_HOST:-$(printenv 9ROUTER_HOST 2>/dev/null || true)}}"
+HOST="${HOST:-127.0.0.1}"
 NPM_PREFIX="${NPM_CONFIG_PREFIX:-$HOME/.npm-global}"
 export PATH="$NPM_PREFIX/bin:$PATH"
 OPEN_DASHBOARD="${OPEN_DASHBOARD:-1}"
@@ -55,7 +57,8 @@ write_dashboard_opener() {
 #!/usr/bin/env bash
 set -euo pipefail
 
-PORT="${9ROUTER_PORT:-20128}"
+PORT="${ROUTER_PORT:-${NINE_ROUTER_PORT:-$(printenv 9ROUTER_PORT 2>/dev/null || true)}}"
+PORT="${PORT:-20128}"
 URL="http://localhost:${PORT}/dashboard"
 READY="http://127.0.0.1:${PORT}/v1/models"
 
@@ -95,7 +98,8 @@ Type=simple
 WorkingDirectory=%h
 Environment=HOME=%h
 Environment=PATH=%h/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-Environment=9ROUTER_PORT=$PORT
+Environment=NINE_ROUTER_PORT=$PORT
+Environment=ROUTER_PORT=$PORT
 
 ExecStartPre=/usr/bin/bash -lc 'fuser -k $PORT/tcp 2>/dev/null || true; sleep 1'
 ExecStart=$router_bin --host $HOST --port $PORT --tray --skip-update
